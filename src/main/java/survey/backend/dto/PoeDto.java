@@ -14,7 +14,7 @@ public class PoeDto {
         private String title;
         private LocalDate beginDate;
         private LocalDate endDate;
-        private PoeTypeDto poetype;
+        private PoeTypeDto poeType;
         @Builder.Default
         private List<StagiaireDto> stagiaires = new ArrayList<>();
 }

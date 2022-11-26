@@ -1,7 +1,6 @@
 package survey.backend.dto;
 
 import lombok.*;
-
 import javax.validation.constraints.*;
 import java.time.LocalDate;
 
@@ -12,20 +11,15 @@ import java.time.LocalDate;
 public class StagiaireDto {
 
     private Integer id;     // int n'est pas nullable mais par contre Integer l'est
-
     @NotBlank       // include @NotNull
     private String lastName;
-
     @NotBlank
     private String firstName;
-
     @NotNull
     @Email
     private String email;
-
     @Pattern(regexp = " ^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$")
     private String phoneNumber;
-
     @Past
     private LocalDate birthDate;
 }
