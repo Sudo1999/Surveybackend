@@ -4,17 +4,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import survey.backend.dto.StagiaireDto;
+import survey.backend.error.NoDataFoundError;
 import survey.backend.service.StagiaireService;
+
+import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
-@RestController
-@RequestMapping("api/stagiaire")     // S'occupe du routage. Un contrôleur est un point d'entrée.
+@RestController     // Retention Runtime => Elle va être conservée pendant toute la durée du projet
+@RequestMapping("api/stagiaire")     // S'occupe du routage (un contrôleur est un point d'entrée)
 public class StagiaireController {
 
     @Autowired  // DI (Dependency Injection)
-    //private StagiaireService stagiaireService;
+    // Il liste les cibles autorisées. Une seule implémentation concrète est possible. Il fait du cablage automatique de composants.
+    private StagiaireService stagiaireService;
 
     /*
     @GetMapping
@@ -29,28 +34,28 @@ public class StagiaireController {
      */
     @GetMapping
     public Set<StagiaireDto> list() {       // On pourrait aussi le faire avec List au lieu de Set
-        //return stagiaireService.findAll();
-            return Set.of(
-                StagiaireDto.builder()
-                    .id(8)
-                    .lastName("Brown")
-                    .firstName("Mary")
-                    .build(),
-                StagiaireDto.builder()
-                    .id(9)
-                    .lastName("Doe")
-                    .firstName("Jane")
-                    .build(),
-                StagiaireDto.builder()
-                    .id(12)
-                    .lastName("Doe")
-                    .firstName("John")
-                    .build(),
-                StagiaireDto.builder()
-                    .id(14)
-                    .lastName("Smith")
-                    .firstName("William")
-                    .build());
+        return stagiaireService.findAll();
+//        return Set.of(
+//            StagiaireDto.builder()
+//                .id(8)
+//                .lastName("Brown")
+//                .firstName("Mary")
+//                .build(),
+//            StagiaireDto.builder()
+//                .id(9)
+//                .lastName("Doe")
+//                .firstName("Jane")
+//                .build(),
+//            StagiaireDto.builder()
+//                .id(12)
+//                .lastName("Doe")
+//                .firstName("John")
+//                .build(),
+//            StagiaireDto.builder()
+//                .id(14)
+//                .lastName("Smith")
+//                .firstName("William")
+//                .build());
     }
 
     /*
@@ -66,22 +71,22 @@ public class StagiaireController {
      * @return a stagiaire
      */
     @GetMapping("{id}")
-    public StagiaireDto one(@PathVariable("id") int id) {
-        //return stagiaireService.findById(id);
-//        Optional<StagiaireDto> optStagiaireDto = stagiaireService.findById(id);
-//        if (optStagiaireDto.isPresent()) {
-//            return optStagiaireDto.get();
-//        } else {
-//            throw new IllegalArgumentException(
-//                    "Stagiaire with id " + id + " not found");
-//        }
-        //return Optional.empty();
-        return //Optional.of(
-            StagiaireDto.builder()
-                .id(id)
-                .lastName("Doe")
-                .firstName("John")
-                .build();    //);
+    public StagiaireDto getById(@PathVariable("id") int id) {
+        Optional<StagiaireDto> optStagiaireDto = stagiaireService.findById(id);
+        if (optStagiaireDto.isPresent()) {
+            return optStagiaireDto.get();
+        } else {
+            //throw new IllegalArgumentException(
+                //"Stagiaire with id " + id + " not found");
+            throw NoDataFoundError.withId("Stagiaire", id);
+        }
+//        //return Optional.empty();
+//        return StagiaireDto.builder()
+//                .id(id)
+//                .lastName("Doe")
+//                .firstName("John")
+//                //.birthDate(LocalDate.of(1900, 7, 1)
+//                .build();
     }
 
     /*
@@ -125,10 +130,18 @@ public class StagiaireController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public StagiaireDto add(@RequestBody StagiaireDto stagiaireDto) {
-        //return stagiaireService.add(stagiaireDto);
+    public StagiaireDto add(@Valid @RequestBody StagiaireDto stagiaireDto) {
         // TODO: add in under layer
-        stagiaireDto.setId(54321);
+        // TODO stagiaireDto must be valid
+        return stagiaireService.add(stagiaireDto);
+//        stagiaireDto.setId(54321);
+//        return stagiaireDto;
+    }
+
+    @PutMapping
+    public StagiaireDto update(@RequestBody StagiaireDto stagiaireDto) {
+        // TODO: update this object if exists and return it
+        // TODO stagiaireDto must be valid
         return stagiaireDto;
     }
 
