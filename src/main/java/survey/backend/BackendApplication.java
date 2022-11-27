@@ -10,6 +10,7 @@ L'annotation @SpringBootApplication est une encapsulation de trois annotations :
     @EnableAutoConfiguration qui permet de générer les configurations nécessaires en fonction des dépendances du classpath;
     @ComponentScan qui indique qu'il faut scanner les classes du package afin de trouver des Beans de configuration.*/
 public class BackendApplication {		// On appelle normalement l'api sur le port 8080
+					// La suite du routage ("api/stagiaire" pour les stagiaires) est définie par le contrôleur
 
 	public static void main(String[] args) {
 		SpringApplication.run(BackendApplication.class, args);

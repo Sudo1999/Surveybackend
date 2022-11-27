@@ -132,7 +132,8 @@ public class StagiaireController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public StagiaireDto add(@Valid @RequestBody StagiaireDto stagiaireDto) {
+    //public StagiaireDto add(@Valid @RequestBody StagiaireDto stagiaireDto) {
+    public StagiaireDto add(@RequestBody StagiaireDto stagiaireDto) {
         // TODO: add in under layer
         // TODO stagiaireDto must be valid
         return stagiaireService.add(stagiaireDto);
@@ -151,7 +152,7 @@ public class StagiaireController {
     }
 
     @DeleteMapping("{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    //@ResponseStatus(HttpStatus.NO_CONTENT)
     public boolean delete(@PathVariable("id") int id) {
         // TODO: delete this object if exists
         return stagiaireService.delete(id);
