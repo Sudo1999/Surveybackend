@@ -132,29 +132,39 @@ public class StagiaireController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    //public StagiaireDto add(@Valid @RequestBody StagiaireDto stagiaireDto) {
-    public StagiaireDto add(@RequestBody StagiaireDto stagiaireDto) {
+    public StagiaireDto add(@Valid @RequestBody StagiaireDto stagiaireDto) {
+        return stagiaireService.add(stagiaireDto);
+    //public StagiaireDto add(@RequestBody StagiaireDto stagiaireDto) {
         // TODO: add in under layer
         // TODO stagiaireDto must be valid
-        return stagiaireService.add(stagiaireDto);
+        //return stagiaireService.add(stagiaireDto);
     }
 
     @PutMapping
-    public StagiaireDto update(@RequestBody StagiaireDto stagiaireDto) {
+    public StagiaireDto update(@Valid @RequestBody StagiaireDto stagiaireDto) {
+        return stagiaireService.update(stagiaireDto)
+            .orElseThrow(
+                    () -> NoDataFoundError.withId("Stagiaire", stagiaireDto.getId())
+            );
+    //public StagiaireDto update(@RequestBody StagiaireDto stagiaireDto) {
         // TODO: update this object if exists and return it
         // TODO stagiaireDto must be valid
-        Optional<StagiaireDto> optStagiaireDto = stagiaireService.update(stagiaireDto);
-        if (optStagiaireDto.isPresent()) {
-            return optStagiaireDto.get();
-        } else {
-            throw UpdateError.updateError("Stagiaire");
-        }
+//        Optional<StagiaireDto> optStagiaireDto = stagiaireService.update(stagiaireDto);
+//        if (optStagiaireDto.isPresent()) {
+//            return optStagiaireDto.get();
+//        } else {
+//            throw UpdateError.updateError("Stagiaire");
+//        }
     }
 
     @DeleteMapping("{id}")
-    //@ResponseStatus(HttpStatus.NO_CONTENT)
-    public boolean delete(@PathVariable("id") int id) {
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    //public boolean delete(@PathVariable("id") int id) {
         // TODO: delete this object if exists
-        return stagiaireService.delete(id);
+        //return stagiaireService.delete(id);
+    public void delete(@PathVariable("id") int id) {
+        if (!stagiaireService.delete(id)) {
+            throw NoDataFoundError.withId("Stagiaire", id);
+        }
     }
 }

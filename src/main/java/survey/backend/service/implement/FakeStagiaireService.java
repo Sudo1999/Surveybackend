@@ -83,16 +83,20 @@ public class FakeStagiaireService implements StagiaireService {
     @Override
     public StagiaireDto add(StagiaireDto stagiaireDto) {
         //return null;
-        //stagiaireDto.setId(RandomGenerator.getDefault().nextInt());
+        stagiaireDto.setId(RandomGenerator.getDefault().nextInt());
         return stagiaireDto;
     }
 
     @Override
     public Optional<StagiaireDto> update(StagiaireDto stagiaireDto) {
         //return null;
-        stagiaireDto.setLastName("Bourne");
-        stagiaireDto.setFirstName("Jason");
-        return Optional.of(stagiaireDto);
+        if (stagiaireDto.getId() % 2 == 0) {
+            return Optional.empty();
+        } else {
+            stagiaireDto.setLastName("Bourne");
+            stagiaireDto.setFirstName("Jason");
+            return Optional.of(stagiaireDto);
+        }
     }
 
     @Override
