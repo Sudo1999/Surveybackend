@@ -2,6 +2,7 @@ package survey.backend.service.implement;
 
 import org.springframework.stereotype.Service;
 import survey.backend.dto.StagiaireDto;
+import survey.backend.repository.StagiaireRepository;
 import survey.backend.service.StagiaireService;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -12,9 +13,14 @@ import java.util.random.RandomGenerator;
 @Service
 public class FakeStagiaireService implements StagiaireService {
 
+    private static final RandomGenerator RANDOM_ID_GENERATOR = RandomGenerator.getDefault();
+
+    private StagiaireRepository repository = new StagiaireRepository();
+
     @Override
     public Set<StagiaireDto> findAll() {
-        return Set.of(
+        return this.repository.getStagiaires();
+        /*return Set.of(
             StagiaireDto.builder()
                 .id(8)
                 .lastName("Brown")
@@ -38,12 +44,13 @@ public class FakeStagiaireService implements StagiaireService {
                 .lastName("Smith")
                 .firstName("William")
                 .birthDate(LocalDate.of(1946, 3, 31))
-                .build());
+                .build());*/
     }
 
     @Override
     public Optional<StagiaireDto> findById(int id) {
-        if (id % 2 == 0) {
+        return this.repository.findById(id);
+        /*if (id % 2 == 0) {
             return Optional.empty();
         } else {
             return Optional.of(StagiaireDto.builder()
@@ -52,7 +59,7 @@ public class FakeStagiaireService implements StagiaireService {
                 .firstName("Steve")
                 .birthDate(LocalDate.of(1955, 2, 24))
                 .build());
-        }
+        }*/
     }
 
     @Override
@@ -82,9 +89,11 @@ public class FakeStagiaireService implements StagiaireService {
 
     @Override
     public StagiaireDto add(StagiaireDto stagiaireDto) {
+        return this.repository.add(stagiaireDto);
+
         //return null;
-        stagiaireDto.setId(RandomGenerator.getDefault().nextInt());
-        return stagiaireDto;
+//        stagiaireDto.setId(RandomGenerator.getDefault().nextInt());
+//        return stagiaireDto;
     }
 
     @Override
@@ -102,6 +111,12 @@ public class FakeStagiaireService implements StagiaireService {
     @Override
     //public void delete(int id) {
     public boolean delete(int id) {
-        return id % 2 == 1;
+        //return id % 2 == 1;
+        Optional<StagiaireDto> optStagiaire = this.repository.findById(id);
+        if(optStagiaire.isPresent()) {
+            return this.repository.delete(optStagiaire.get());
+        }
+        return false;
+        //return this.repository.delete(id);
     }
 }
