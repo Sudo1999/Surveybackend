@@ -2,11 +2,8 @@ package survey.backend.dto;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-
 import java.time.LocalDate;
-import java.util.Date;
-
-import static org.junit.jupiter.api.Assertions.*;   // L'import static permet d'avoir les classes qui serviront aux tests
+import static org.junit.jupiter.api.Assertions.*;
 
 class StagiaireDtoTest {
 
@@ -23,18 +20,16 @@ class StagiaireDtoTest {
 
     @Test   // Annotation JUnit
     void testDefaultConstructor() {
-        StagiaireDto stagiaireDto = new StagiaireDto();  // Retour de fonction : on peut utiliser var car le type est connu
-        assertAll(
+        StagiaireDto stagiaireDto = new StagiaireDto();
+        assertAll(      // Sans le assertAll, le premier qui plante arrête tout => on ne connaît pas le nombre d'erreurs
                 () -> assertNull(stagiaireDto.getId(), "id"),
                 () -> assertNull(stagiaireDto.getLastName(), "lastname"),
                 () -> assertNull(stagiaireDto.getFirstName(), "firstname"),
                 () -> assertNull(stagiaireDto.getEmail(), "email"),
                 () -> assertNull(stagiaireDto.getPhoneNumber(), "phonenumber"),
                 () -> assertNull(stagiaireDto.getBirthDate(), "birthdate")
-        );  // Sans le assertAll, le premier qui plante arrête tout => on ne connaît pas le nombre d'erreurs
+        );
     }
-
-    // TODO: all args constructor
 
     @Test
     void testAllArgsConstructor() {
@@ -55,16 +50,7 @@ class StagiaireDtoTest {
         );
     }
 
-    // TODO: builder
-
     @Test
     void testBuilder() {
-        // given
-        int id = 123;
-        String lastname = "doe";
-        String firstname = "john";
-        // when
-        var stagiaireBuilder = StagiaireDto.builder();
-        // then
     }
 }

@@ -28,14 +28,11 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {  // Cette cla
     }
 
     @ExceptionHandler(NoDataFoundError.class)
-    //public ResponseEntity<NoDataFoundError> handleNoDataFoundError(
     public ResponseEntity<ErrorMessage> handleNoDataFoundError(
             Exception ex, WebRequest request
     ) {
         // TODO: send error jsonified
-        //return ResponseEntity.notFound().build();   // ResponseEntity.notFound() n'accepte pas de .body()
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                //.body(ex);  // Une exception fait dérailler toute la suite des instructions si elle n'est pas interceptée
                 .body(ErrorMessage.builder()
                         .status(404)
                         .error(ex.getMessage())
