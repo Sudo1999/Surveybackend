@@ -25,8 +25,13 @@ public class StagiaireService implements survey.backend.service.StagiaireService
 
     @Override
     public Iterable<Stagiaire> search(String lastName, String firstName) {
-        // TODO implement method in the repository
-        return null;
+        if (lastName != null && firstName != null) {
+            return this.stagiaireRepository.listByLastNameAndFirstName(lastName, firstName);
+        }
+        if (lastName != null) {
+            return this.stagiaireRepository.findByLastName(lastName);
+        }
+        return this.stagiaireRepository.findByFirstName(firstName);
     }
 
     @Override

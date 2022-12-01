@@ -5,9 +5,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import survey.backend.dto.StagiaireDto;
 import survey.backend.entities.Stagiaire;
+import survey.backend.error.BadRequestError;
 import survey.backend.error.NoDataFoundError;
 import survey.backend.service.StagiaireService;
 import javax.validation.Valid;
+import java.util.Collection;
 import java.util.Optional;
 
 @RestController     // Annotation @RestController => chaque méthode va renvoyer directement la réponse Json à l'utilisateur.
@@ -54,11 +56,22 @@ public class StagiaireController {
      * @return stagiaires corresponding
      */
     @GetMapping("search")
-    public Iterable<Stagiaire> search(    // A ce stade le Contrôleur n'appelle pas le Fake pour cette fonction (c'est la seule)
-            @RequestParam(name = "fn", required = false) String firstName,
-            @RequestParam(name = "ln", required = false) String lastName
+    public Iterable<Stagiaire> search(
+            @RequestParam(name = "ln", required = false) String lastName,
+            @RequestParam(name = "fn", required = false) String firstName
     ) {
-        return null;
+        int size = 0;
+        if (lastName == null && firstName == null) {
+            throw BadRequestError.withNoArg("Search with no args is a bad request !!!");  // 400 Bad Request
+        }
+        Iterable<Stagiaire> stagiaireCollection = stagiaireService.search(lastName, firstName);
+        if (stagiaireCollection instanceof Collection) {
+            size = ((Collection<Stagiaire>) stagiaireCollection).size();
+        }
+        if (size == 0) {
+            throw NoDataFoundError.noResults("Stagiaire search", lastName + " " + firstName);
+        }
+        return stagiaireCollection;
     }
 
     @PostMapping
