@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import java.util.List;
 
 @Builder
 @AllArgsConstructor
@@ -15,5 +14,5 @@ public class ErrorMessage {
 
     private int status;
     private String error;
-    private List<AbstractErrorDetailMessage> detail;
+    //private List<AbstractErrorDetailMessage> detail;
 }

@@ -4,28 +4,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import survey.backend.dto.StagiaireDto;
+import survey.backend.entities.Stagiaire;
+import survey.backend.error.BadRequestError;
 import survey.backend.error.NoDataFoundError;
 import survey.backend.service.StagiaireService;
-
 import javax.validation.Valid;
-import java.time.LocalDate;
-import java.util.Objects;
+import java.util.Collection;
 import java.util.Optional;
-import java.util.Set;
 
-@RestController     // Retention Runtime => Elle va être conservée pendant toute la durée du projet
-@RequestMapping("api/stagiaire")     // S'occupe du routage (un contrôleur est un point d'entrée)
+@RestController     // Annotation @RestController => chaque méthode va renvoyer directement la réponse Json à l'utilisateur.
+@RequestMapping("api/stagiaire")     // Routage (un contrôleur est un point d'entrée)
+// Des annotations telles que @GetMapping, @PostMapping, @PutMapping, @DeleteMapping, qui ornent les méthodes correspondantes,
+// permettent de ne spécifier que l’URL tout en utilisant le verbe HTTP lié, présent juste avant le mapping.
 public class StagiaireController {
 
     @Autowired  // DI (Dependency Injection)
-    // Il liste les cibles autorisées. Une seule implémentation concrète est possible. Il fait du cablage automatique de composants.
+    // Il liste les cibles autorisées et fait du câblage automatique de composants. Une seule implémentation concrète est possible.
     private StagiaireService stagiaireService;
-
-    /*
-    @GetMapping
-    public String list() {
-        return "Liste de stagiaires";
-    }*/
 
     /**
      * List of stagiaires
@@ -33,36 +28,9 @@ public class StagiaireController {
      * @return list of stagiaires
      */
     @GetMapping
-    public Set<StagiaireDto> list() {       // On pourrait aussi le faire avec List au lieu de Set
+    public Iterable<Stagiaire> list() {
         return stagiaireService.findAll();
-//        return Set.of(
-//            StagiaireDto.builder()
-//                .id(8)
-//                .lastName("Brown")
-//                .firstName("Mary")
-//                .build(),
-//            StagiaireDto.builder()
-//                .id(9)
-//                .lastName("Doe")
-//                .firstName("Jane")
-//                .build(),
-//            StagiaireDto.builder()
-//                .id(12)
-//                .lastName("Doe")
-//                .firstName("John")
-//                .build(),
-//            StagiaireDto.builder()
-//                .id(14)
-//                .lastName("Smith")
-//                .firstName("William")
-//                .build());
     }
-
-    /*
-    @GetMapping("{id}")
-    public String one(@PathVariable("id") int id) {
-        return "One stagiaire: " + id;
-    }*/
 
     /**
      * A stagiaire by its id
@@ -71,83 +39,61 @@ public class StagiaireController {
      * @return a stagiaire
      */
     @GetMapping("{id}")
-    public StagiaireDto getById(@PathVariable("id") int id) {
-        Optional<StagiaireDto> optStagiaireDto = stagiaireService.findById(id);
-        if (optStagiaireDto.isPresent()) {
-            return optStagiaireDto.get();
+    public Stagiaire getById(@PathVariable("id") int id) {
+        Optional<Stagiaire> optStagiaire = stagiaireService.findById(id);
+        if (optStagiaire.isPresent()) {
+            return optStagiaire.get();
         } else {
-            //throw new IllegalArgumentException(
-                //"Stagiaire with id " + id + " not found");
             throw NoDataFoundError.withId("Stagiaire", id);
         }
-//        //return Optional.empty();
-//        return StagiaireDto.builder()
-//                .id(id)
-//                .lastName("Doe")
-//                .firstName("John")
-//                //.birthDate(LocalDate.of(1900, 7, 1)
-//                .build();
     }
-
-    /*
-    @GetMapping("search")
-    public String search(
-        @RequestParam(name="fn", required = false) String firstname,    // On précise le nom des paramètres quand ils sont plusieurs
-        @RequestParam(name="ln", required = false) String lastname      // required = false signifie que le paramètre est optionnel
-    ) {
-        return "Search result: fn = " + firstname + " ; ln = " + lastname;
-    }*/
 
     /**
      * Search stagiaires with criteria
      * route: /api/stagiaire/search?fn=some_firstname&ln=some_lastname
-     * @param firstname (optional)
-     * @param lastname  (optional)
+     * @param firstName (optional)
+     * @param lastName  (optional)
      * @return stagiaires corresponding
      */
     @GetMapping("search")
-    public Set<StagiaireDto> search(
-            @RequestParam(name = "fn", required = false) String firstname,
-            @RequestParam(name = "ln", required = false) String lastname
+    public Iterable<Stagiaire> search(
+            @RequestParam(name = "ln", required = false) String lastName,
+            @RequestParam(name = "fn", required = false) String firstName
     ) {
-        return Set.of(
-            StagiaireDto.builder()
-                .id(8)
-                .lastName(Objects.isNull(lastname) ? "Found" : lastname)
-                .firstName(Objects.isNull(firstname) ? "Mary" : firstname)
-                .build(),
-            StagiaireDto.builder()
-                .id(9)
-                .lastName("Found")
-                .firstName("Jane")
-                .build(),
-            StagiaireDto.builder()
-                .id(12)
-                .lastName("Found")
-                .firstName("Jim")
-                .build());
+        int size = 0;
+        if (lastName == null && firstName == null) {
+            throw BadRequestError.withNoArg("Search with no args is a bad request !!!");  // 400 Bad Request
+        }
+        Iterable<Stagiaire> stagiaireCollection = stagiaireService.search(lastName, firstName);
+        if (stagiaireCollection instanceof Collection) {
+            size = ((Collection<Stagiaire>) stagiaireCollection).size();
+        }
+        if (size == 0) {
+            throw NoDataFoundError.noResults("Stagiaire search", lastName + " " + firstName);
+        }
+        return stagiaireCollection;
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public StagiaireDto add(@Valid @RequestBody StagiaireDto stagiaireDto) {
-        // TODO: add in under layer
-        // TODO stagiaireDto must be valid
+    public Stagiaire add(@Valid @RequestBody StagiaireDto stagiaireDto) {
         return stagiaireService.add(stagiaireDto);
-//        stagiaireDto.setId(54321);
-//        return stagiaireDto;
     }
 
     @PutMapping
-    public StagiaireDto update(@RequestBody StagiaireDto stagiaireDto) {
-        // TODO: update this object if exists and return it
-        // TODO stagiaireDto must be valid
-        return stagiaireDto;
+    public Stagiaire update(@Valid @RequestBody StagiaireDto stagiaireDto) {
+        return stagiaireService.update(stagiaireDto)
+            .orElseThrow(
+                () -> NoDataFoundError.withId("Stagiaire",
+                    Math.toIntExact(stagiaireDto.getId()))
+        );
     }
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("id") int id) {
-        // TODO: delete this object if exists
+        if (!stagiaireService.delete(id)) {
+            throw NoDataFoundError.withId("Stagiaire", id);
+        }
     }
 }

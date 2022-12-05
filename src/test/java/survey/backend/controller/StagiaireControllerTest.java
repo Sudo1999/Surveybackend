@@ -1,19 +1,15 @@
 package survey.backend.controller;
 
 import org.junit.jupiter.api.Test;
-import org.mockito.BDDMockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import survey.backend.dto.StagiaireDto;
 import survey.backend.service.StagiaireService;
 import java.util.Optional;
-import java.util.prefs.BackingStoreException;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -30,8 +26,6 @@ class StagiaireControllerTest {
 
     @Test
     void testGetByIdOk() throws Exception {
-        //fail();
-
         // prepare
         int id = 123;
         var stagiaireDto = StagiaireDto.builder()
@@ -62,8 +56,6 @@ class StagiaireControllerTest {
 
     @Test
     void testGetByIdKoNotFound() throws Exception {
-        //fail();
-
         // prepare
         int id = 0;
         given(stagiaireService.findById(id))
