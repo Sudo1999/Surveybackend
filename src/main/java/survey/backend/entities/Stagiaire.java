@@ -13,6 +13,7 @@ public class Stagiaire {
     @GeneratedValue(strategy = GenerationType.IDENTITY)     // IDENTITY = entier non nul auto-incrémenté
     @Column(name = "id", nullable = false)
     private Long id;
+
     @Column(name="last_name", nullable = false)
     private String lastName;
     @Column(name="first_name", nullable = false)
