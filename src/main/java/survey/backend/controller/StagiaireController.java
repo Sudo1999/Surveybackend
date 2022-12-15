@@ -28,7 +28,7 @@ public class StagiaireController {
      * @return list of stagiaires
      */
     @GetMapping
-    public Iterable<Stagiaire> list() {
+    public Iterable<Stagiaire> findAll() {
         return stagiaireService.findAll();
     }
 
@@ -39,7 +39,7 @@ public class StagiaireController {
      * @return a stagiaire
      */
     @GetMapping("{id}")
-    public Stagiaire getById(@PathVariable("id") int id) {
+    public Stagiaire findById(@PathVariable("id") int id) {
         Optional<Stagiaire> optStagiaire = stagiaireService.findById(id);
         if (optStagiaire.isPresent()) {
             return optStagiaire.get();
@@ -77,6 +77,7 @@ public class StagiaireController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Stagiaire add(@Valid @RequestBody StagiaireDto stagiaireDto) {
+
         return stagiaireService.add(stagiaireDto);
     }
 

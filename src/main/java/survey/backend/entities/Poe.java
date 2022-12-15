@@ -10,7 +10,7 @@ import java.util.Set;
 @Getter @Setter
 public class Poe {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Gère l'auto-implémentation
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
@@ -23,9 +23,12 @@ public class Poe {
 
     @Column(length = 10, nullable = false)
     @Enumerated(EnumType.STRING)
-    private PoeType type;
+    private PoeType poeType;
 
-    @OneToMany      // One = une Poe => to Many = pour plusieurs stagiaires
-    @JoinColumn(name = "poe_id")
+    @Column(name = "id_aelion", nullable = true)
+    private String idAelion;
+
+    @OneToMany
+    @JoinColumn(name = "poe_id")    // poe_id sera la clé étrangère de l'entité cible
     private Set<Stagiaire> stagiaires;
 }

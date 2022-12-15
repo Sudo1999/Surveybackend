@@ -7,7 +7,7 @@ public class NoDataFoundError extends RuntimeException {
     }
 
     public static NoDataFoundError withId(String itemType, int id) {
-        return new NoDataFoundError(itemType + " not found");
+        return new NoDataFoundError(itemType + " " + id + " not found");
     }
 
     public static NoDataFoundError noResults(String itemType, String message) {
