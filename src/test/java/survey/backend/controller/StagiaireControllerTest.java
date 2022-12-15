@@ -1,10 +1,5 @@
-<<<<<<< HEAD
-//package survey.backend.controller;
-//
-=======
 package survey.backend.controller;
 
->>>>>>> 9b512c2c23970d9e887c4412c1fffd63b8b2988c
 //import org.junit.jupiter.api.Test;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;

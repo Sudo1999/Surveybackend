@@ -1,10 +1,5 @@
-<<<<<<< HEAD
-//package survey.backend.dto;
-//
-=======
 package survey.backend.dto;
 
->>>>>>> 9b512c2c23970d9e887c4412c1fffd63b8b2988c
 //import org.junit.jupiter.api.BeforeAll;
 //import org.junit.jupiter.api.Test;
 //import java.time.LocalDate;
