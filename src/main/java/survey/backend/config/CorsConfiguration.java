@@ -7,6 +7,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class CorsConfiguration {
+// On pourrait ajouter ici un filtre sur l'adresse entrante
 
     /*
     @Bean
