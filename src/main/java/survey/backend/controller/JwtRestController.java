@@ -17,16 +17,16 @@ import survey.backend.dto.RequestDto;
 import survey.backend.dto.ResponseDto;
 import survey.backend.exception.DisabledUserException;
 import survey.backend.exception.InvalidUserCredentialsException;
-import survey.backend.service.implement.UserJwtUtil;
+import survey.backend.auth.JwtUtil;
 import survey.backend.service.implement.UserAuthService;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin(value = "http://localhost:4200")
-public class JwtRestApi {
+public class JwtRestController {
     @Autowired
-    private UserJwtUtil jwtUtil;
+    private JwtUtil jwtUtil;
     @Autowired
     private UserAuthService userAuthService;
     @Autowired
@@ -43,7 +43,7 @@ public class JwtRestApi {
         } catch (BadCredentialsException e) {
             throw new InvalidUserCredentialsException("Invalid Credentials");
         }
-        User user = (User) authentication.getPrincipal();
+        org.springframework.security.core.userdetails.User user = (User) authentication.getPrincipal();
         // Le User est celui de org.springframework.security.core.userdetails (comme celui de UserAuthService)
         Set<String> roles = user.getAuthorities().stream().map(role -> role.getAuthority()).collect(Collectors.toSet());
         String token = jwtUtil.generateToken(authentication);

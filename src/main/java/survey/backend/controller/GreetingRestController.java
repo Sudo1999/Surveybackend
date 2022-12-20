@@ -1,4 +1,4 @@
-package survey.backend.auth;
+package survey.backend.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin(value = "http://localhost:4200", allowCredentials = "true")
-public class GreetingRestApi {
+public class GreetingRestController {
 
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/greet/user")
