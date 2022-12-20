@@ -17,11 +17,7 @@ import java.io.IOException;
 
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-<<<<<<< HEAD
     // JwtAuthenticationFilter appelle la classe jwtUtil et aussi la fonction loadUserByUsername() du service UserAuthService
-=======
-    // JwtAuthenticationFilter ressemble à un contrôleur quand il appelle la fonction loadUserByUsername() du service
->>>>>>> 83552f5c3fc2853848de1135ad7cdbc0dc31526b
     @Autowired
     private JwtUtil jwtUtil;
     @Autowired
