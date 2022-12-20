@@ -10,8 +10,12 @@ import java.util.Date;
 
 @Component
 public class JwtUtil {
+<<<<<<< HEAD
     // JwtUtil contient deux fonctions appelées par JwtAuthenticationFilter, validateToken() et getUserName(),
     // et une fonction generateToken() appelée par le contrôleur JwtRestController
+=======
+    // JwtUtil ressemble à un service quand sa fonction generateToken() est appelée par le contrôleur
+>>>>>>> 83552f5c3fc2853848de1135ad7cdbc0dc31526b
     @Value("${jwt.secret}")
     private String jwtSecret;
     @Value("${jwt.token.validity}")
