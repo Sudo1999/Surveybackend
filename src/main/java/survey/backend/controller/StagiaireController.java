@@ -8,7 +8,6 @@ import survey.backend.entities.Stagiaire;
 import survey.backend.error.BadRequestError;
 import survey.backend.error.NoDataFoundError;
 import survey.backend.service.StagiaireService;
-
 import javax.validation.Valid;
 import java.util.Collection;
 import java.util.Optional;
@@ -88,10 +87,10 @@ public class StagiaireController {
     @PutMapping
     public Stagiaire update(@Valid @RequestBody StagiaireDto stagiaireDto) {
         return stagiaireService.update(stagiaireDto)
-                .orElseThrow(
-                        () -> NoDataFoundError.withId("Stagiaire",
-                                Math.toIntExact(stagiaireDto.getId()))
-                );
+            .orElseThrow(
+                    () -> NoDataFoundError.withId("Stagiaire",
+                            Math.toIntExact(stagiaireDto.getId()))
+            );
     }
 
     @DeleteMapping("{id}")
