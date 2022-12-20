@@ -1,4 +1,4 @@
-package survey.backend.controller;
+package survey.backend.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -8,7 +8,6 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import survey.backend.exception.JwtTokenMissingException;
-import survey.backend.service.implement.UserJwtUtil;
 import survey.backend.service.implement.UserAuthService;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -18,9 +17,9 @@ import java.io.IOException;
 
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-
+    // JwtAuthenticationFilter ressemble à un contrôleur quand il appelle la fonction loadUserByUsername() du service
     @Autowired
-    private UserJwtUtil jwtUtil;
+    private JwtUtil jwtUtil;
     @Autowired
     private UserAuthService userAuthService;
 
