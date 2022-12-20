@@ -48,7 +48,7 @@ public class PoeController {
     public Poe update(@Valid @RequestBody PoeDto poeDto) {
         return poeService.update(poeDto)
             .orElseThrow(
-                    () -> NoDataFoundError.withId("Stagiaire",
+                    () -> NoDataFoundError.withId("Poe",
                             Math.toIntExact(poeDto.getId()))
             );
     }
