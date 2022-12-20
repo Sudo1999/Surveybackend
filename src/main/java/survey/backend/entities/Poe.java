@@ -14,21 +14,21 @@ public class Poe {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(length = 150, nullable = false)
+    @Column(name = "title", length = 150, nullable = false)
     private String title;
     @Column(name = "begin_date", nullable = false)
     private Date beginDate;
     @Column(name = "end_date", nullable = false)
     private Date endDate;
 
-    @Column(length = 10, nullable = false)
+    @Column(name = "poe_type", length = 10, nullable = false)
     @Enumerated(EnumType.STRING)
     private PoeType poeType;
 
-    @Column(name = "id_aelion", nullable = true)
+    @Column(name = "id_aelion", length = 15, nullable = true)
     private String idAelion;
 
-    @OneToMany
-    @JoinColumn(name = "poe_id")    // poe_id sera la clé étrangère de l'entité cible
-    private Set<Stagiaire> stagiaires;
+//    @OneToMany
+//    @JoinColumn(name = "poe_id")    // poe_id sera la clé étrangère de l'entité cible
+//    private Set<Stagiaire> stagiaires;
 }
