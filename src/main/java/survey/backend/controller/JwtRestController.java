@@ -25,6 +25,10 @@ import java.util.stream.Collectors;
 @RestController
 @CrossOrigin(value = "http://localhost:4200")
 public class JwtRestController {
+<<<<<<< HEAD
+    // JwtRestController appelle la classe jwtUtil et aussi la fonction saveUser() du service UserAuthService
+=======
+>>>>>>> 83552f5c3fc2853848de1135ad7cdbc0dc31526b
     @Autowired
     private JwtUtil jwtUtil;
     @Autowired

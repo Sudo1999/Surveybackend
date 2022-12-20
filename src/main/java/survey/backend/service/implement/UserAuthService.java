@@ -27,6 +27,10 @@ public class UserAuthService implements UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+<<<<<<< HEAD
+        // La fonction est appelée par la classe JwtAuthenticationFilter
+=======
+>>>>>>> 83552f5c3fc2853848de1135ad7cdbc0dc31526b
         User user = userRepository.findByUserName(userName).get();      // Ici c'est le User de l'application
         // Il faudrait pour bien faire comme condition que l'utilisateur existe
         List<UserRole> userRoles = user.getUserRoles().stream().collect(Collectors.toList());
@@ -39,6 +43,7 @@ public class UserAuthService implements UserDetailsService {
     }
 
     public void saveUser(RequestDto request) {
+        // La fonction est appelée par le contrôleur JwtRestController
         if (userRepository.findByUserName(request.getUserName()).isPresent()) {
             throw new RuntimeException("User already exists");
         }
