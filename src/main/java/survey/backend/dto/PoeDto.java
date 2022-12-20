@@ -3,13 +3,11 @@ package survey.backend.dto;
 import lombok.*;
 import survey.backend.entities.Poe;
 import survey.backend.entities.PoeType;
-import survey.backend.entities.Stagiaire;
-
 import javax.validation.constraints.NotBlank;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Builder
 @Getter @Setter
@@ -22,9 +20,10 @@ public class PoeDto {
         private Date beginDate;
         private Date endDate;
         private PoeType poeType;
+        private String idAelion;
 
-        @Builder.Default
-        private List<StagiaireDto> stagiaires = new ArrayList<>();
+//        @Builder.Default
+//        private Set<StagiaireDto> stagiaires = null;
 
         public Poe toPoe() {
                 Poe poe = new Poe();
@@ -33,6 +32,7 @@ public class PoeDto {
                 poe.setBeginDate(this.beginDate);
                 poe.setEndDate(this.endDate);
                 poe.setPoeType(this.poeType);
+                poe.setIdAelion(this.idAelion);
                 return poe;
         }
 }

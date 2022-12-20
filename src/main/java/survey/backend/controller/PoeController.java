@@ -47,10 +47,10 @@ public class PoeController {
     @PutMapping
     public Poe update(@Valid @RequestBody PoeDto poeDto) {
         return poeService.update(poeDto)
-                .orElseThrow(
-                        () -> NoDataFoundError.withId("Stagiaire",
-                                Math.toIntExact(poeDto.getId()))
-                );
+            .orElseThrow(
+                    () -> NoDataFoundError.withId("Stagiaire",
+                            Math.toIntExact(poeDto.getId()))
+            );
     }
 
     @DeleteMapping("{id}")
