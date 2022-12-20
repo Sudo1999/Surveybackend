@@ -1,4 +1,4 @@
-package survey.backend.service.implement;
+package survey.backend.auth;
 
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
@@ -9,14 +9,17 @@ import survey.backend.exception.*;
 import java.util.Date;
 
 @Component
-public class UserJwtUtil {      // UserJwtUtil joue un rôle de service
+public class JwtUtil {
+    // JwtUtil contient deux fonctions appelées par JwtAuthenticationFilter, validateToken() et getUserName(),
+    // et une fonction generateToken() appelée par le contrôleur JwtRestController
     @Value("${jwt.secret}")
     private String jwtSecret;
     @Value("${jwt.token.validity}")
     private long tokenValidity;
 
-    public String generateToken(Authentication authentication) {    // generateToken est appelé dans JwtRestApi
-        User user = (User) authentication.getPrincipal();
+    public String generateToken(Authentication authentication) {    // generateToken est appelé dans JwtRestController
+        org.springframework.security.core.userdetails
+                .User user = (User) authentication.getPrincipal();
         Claims claims = Jwts.claims().setSubject(user.getUsername());   // getUsername, pas getUserName !!!
         final long nowMillis = System.currentTimeMillis();
         final long expMillis = nowMillis + tokenValidity;
