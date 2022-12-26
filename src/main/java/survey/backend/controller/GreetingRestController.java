@@ -14,24 +14,24 @@ public class GreetingRestController {
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/greet/user")
     public ResponseEntity<String> greetingUser() {
-        return new ResponseEntity<String>("Welcome, you have USER role", HttpStatus.OK);
+        return new ResponseEntity<String>("Your username grants you USER role", HttpStatus.OK);
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/greet/admin")
     public ResponseEntity<String> greetingAdmin() {
-        return new ResponseEntity<String>("Welcome, you have ADMIN role", HttpStatus.OK);
+        return new ResponseEntity<String>("Your username grants you ADMIN role", HttpStatus.OK);
     }
 
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     @GetMapping("/greet/userOrAdmin")
     public ResponseEntity<String> greetingUserOrAdmin() {
-        return new ResponseEntity<String>("Welcome, you have USER and ADMIN role", HttpStatus.OK);
+        return new ResponseEntity<String>("Your username grants you USER or ADMIN role", HttpStatus.OK);
     }
 
     @PreAuthorize("hasRole('ANONYMOUS')")
     @GetMapping("/greet/anonymous")
     public ResponseEntity<String> greetingAnonymous() {
-        return new ResponseEntity<String>("Welcome, you have ANONYMOUS role", HttpStatus.OK);
+        return new ResponseEntity<String>("Your username grants you ANONYMOUS role", HttpStatus.OK);
     }
 }
