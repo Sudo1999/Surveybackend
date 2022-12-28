@@ -4,6 +4,8 @@ import lombok.*;
 import survey.backend.entities.Poe;
 import survey.backend.entities.PoeType;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,8 +19,11 @@ public class PoeDto {
         private Long id;
         @NotBlank
         private String title;
+        @NotNull
         private Date beginDate;
+        @NotNull
         private Date endDate;
+        @NotEmpty
         private PoeType poeType;
         private String idAelion;
 

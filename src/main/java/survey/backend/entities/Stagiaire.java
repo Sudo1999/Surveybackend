@@ -22,6 +22,6 @@ public class Stagiaire {
     private String email;
     @Column(name="phone_number", nullable = false)
     private String phoneNumber;
-    @Column(name="birth_date", nullable = true)
+    @Column(name="birth_date", nullable = false)
     private Date birthDate;
 }
