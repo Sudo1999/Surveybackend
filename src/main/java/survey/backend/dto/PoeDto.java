@@ -23,7 +23,7 @@ public class PoeDto {
         private Date beginDate;
         @NotNull
         private Date endDate;
-        @NotEmpty
+        @NotNull
         private PoeType poeType;
         private String idAelion;
 
