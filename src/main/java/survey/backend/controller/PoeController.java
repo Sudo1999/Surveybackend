@@ -23,7 +23,7 @@ public class PoeController {
     }
 
     @GetMapping("{id}")
-    public Poe findById(@PathVariable("id") int id) {
+    public Poe findById(@PathVariable("id") Long id) {
         Optional<Poe> optPoe = poeService.findById(id);
         if (optPoe.isPresent()) {
             return optPoe.get();
@@ -48,14 +48,13 @@ public class PoeController {
     public Poe update(@Valid @RequestBody PoeDto poeDto) {
         return poeService.update(poeDto)
             .orElseThrow(
-                    () -> NoDataFoundError.withId("Poe",
-                            Math.toIntExact(poeDto.getId()))
+                    () -> NoDataFoundError.withId("Poe", poeDto.getId())
             );
     }
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable("id") int id) {
+    public void delete(@PathVariable("id") Long id) {
         if (!poeService.delete(id)) {
             throw NoDataFoundError.withId("Poe", id);
         }

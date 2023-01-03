@@ -17,8 +17,8 @@ public class PoeService {
         return this.poeRepository.findAll();
     }
 
-    public Optional<Poe> findById(int id) {
-        return this.poeRepository.findById((long) id);
+    public Optional<Poe> findById(Long id) {
+        return this.poeRepository.findById(id);
     }
 
     // Fonction à développer plus tard si nécessaire
@@ -40,8 +40,8 @@ public class PoeService {
         return Optional.empty();
     }
 
-    public boolean delete(int id) {
-        Optional<Poe> optPoe = this.poeRepository.findById((long)id);
+    public boolean delete(Long id) {
+        Optional<Poe> optPoe = this.poeRepository.findById(id);
         if(optPoe.isPresent()) {
             this.poeRepository.delete(optPoe.get());
             return true;

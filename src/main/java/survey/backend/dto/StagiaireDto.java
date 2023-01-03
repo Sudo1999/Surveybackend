@@ -1,5 +1,6 @@
 package survey.backend.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import survey.backend.entities.Stagiaire;
 import javax.validation.constraints.*;
@@ -35,14 +36,14 @@ public class StagiaireDto {
     @Past
     private Date birthDate;
 
-    public Stagiaire toStagiaire() {
-        Stagiaire stagiaire = new Stagiaire();
-        stagiaire.setId(this.id);
-        stagiaire.setLastName(this.lastName);
-        stagiaire.setFirstName(this.firstName);
-        stagiaire.setEmail(this.email);
-        stagiaire.setPhoneNumber(this.phoneNumber);
-        stagiaire.setBirthDate(this.birthDate);
-        return stagiaire;
-    }
+//    public Stagiaire toStagiaire() {
+//        Stagiaire stagiaire = new Stagiaire();
+//        stagiaire.setId(this.id);
+//        stagiaire.setLastName(this.lastName);
+//        stagiaire.setFirstName(this.firstName);
+//        stagiaire.setEmail(this.email);
+//        stagiaire.setPhoneNumber(this.phoneNumber);
+//        stagiaire.setBirthDate(this.birthDate);
+//        return stagiaire;
+//    }
 }

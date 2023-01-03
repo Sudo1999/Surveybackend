@@ -27,7 +27,7 @@ package survey.backend.controller;
 //    @Test
 //    void testGetByIdOk() throws Exception {
 //        // prepare
-//        int id = 123;
+//        Long id = 123L;
 //        var stagiaireDto = StagiaireDto.builder()
 //                .id(id)
 //                .lastName("Doe")
@@ -57,7 +57,7 @@ package survey.backend.controller;
 //    @Test
 //    void testGetByIdKoNotFound() throws Exception {
 //        // prepare
-//        int id = 0;
+//        Long id = 0L;
 //        given(stagiaireService.findById(id))
 //                .willReturn(Optional.empty());
 //

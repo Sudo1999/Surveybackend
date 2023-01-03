@@ -4,7 +4,8 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@Table
+// @Table => changé pour les tests en @Table(name = "users")
+@Table(name = "users")
 @Entity
 public class User {
     @Id

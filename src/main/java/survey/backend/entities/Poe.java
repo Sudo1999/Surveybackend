@@ -1,13 +1,17 @@
 package survey.backend.entities;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
 
 @Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter @Setter
+@ToString(exclude = "stagiaires")
 public class Poe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
