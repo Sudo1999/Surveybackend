@@ -18,37 +18,37 @@ public class PoeController {
     private PoeService poeService;
 
     @GetMapping
-    public Iterable<Poe> findAll() {
+    public Iterable<PoeDto> findAll() {
         return poeService.findAll();
     }
 
     @GetMapping("{id}")
-    public Poe findById(@PathVariable("id") Long id) {
-        Optional<Poe> optPoe = poeService.findById(id);
+    public PoeDto findById(@PathVariable("id") Long id) {
+        Optional<PoeDto> optPoe = poeService.findById(id);
         if (optPoe.isPresent()) {
             return optPoe.get();
         } else {
-            throw NoDataFoundError.withId("Poe", id);
+            throw NoDataFoundError.withId("PoeDto", id);
         }
     }
 
     // Fonction à développer plus tard si nécessaire
     @GetMapping("search")
-    public Iterable<Poe> search() {
+    public Iterable<PoeDto> search() {
         return poeService.search();
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Poe add(@Valid @RequestBody PoeDto poeDto) {
+    public PoeDto add(@Valid @RequestBody PoeDto poeDto) {
         return poeService.add(poeDto);
     }
 
     @PutMapping
-    public Poe update(@Valid @RequestBody PoeDto poeDto) {
+    public PoeDto update(@Valid @RequestBody PoeDto poeDto) {
         return poeService.update(poeDto)
             .orElseThrow(
-                    () -> NoDataFoundError.withId("Poe", poeDto.getId())
+                    () -> NoDataFoundError.withId("PoeDto", poeDto.getId())
             );
     }
 
@@ -56,7 +56,7 @@ public class PoeController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("id") Long id) {
         if (!poeService.delete(id)) {
-            throw NoDataFoundError.withId("Poe", id);
+            throw NoDataFoundError.withId("PoeDto", id);
         }
     }
 }

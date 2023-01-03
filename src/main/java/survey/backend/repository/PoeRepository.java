@@ -11,6 +11,6 @@ public interface PoeRepository extends CrudRepository<Poe, Long> {
     @Query("select p from Poe p where p.endDate between :firstDate and :lastDate")
     List<Poe> findByEndingInRange(Date firstDate, Date lastDate);
 
-    // Fonction équivalente fournie par Spring Boot
-    //List<Poe> findByEndDateBetween(Date firstDate, Date lastDate);
+    // Fonction équivalente fournie par Spring Boot :
+    List<Poe> findByEndDateBetween(Date firstDate, Date lastDate);
 }

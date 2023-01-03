@@ -29,7 +29,7 @@ public class UserAuthService implements UserDetailsService {
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
         // La fonction loadUserByUsername() est appelée par la classe JwtAuthenticationFilter
         User user = userRepository.findByUserName(userName).get();      // Ici c'est le User de l'application
-        // Il faudrait pour bien faire comme condition que l'utilisateur existe
+        // Il faudrait pour bien faire ajouter comme condition que l'utilisateur existe
         List<UserRole> userRoles = user.getUserRoles().stream().collect(Collectors.toList());
         List<GrantedAuthority> grantedAuthorities = userRoles.stream()
                 .map(role -> {

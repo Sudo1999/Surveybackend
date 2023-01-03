@@ -1,8 +1,7 @@
 package survey.backend.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
-import survey.backend.entities.Stagiaire;
+//import survey.backend.entities.Stagiaire;
 import javax.validation.constraints.*;
 import java.util.Date;
 
@@ -13,6 +12,7 @@ import java.util.Date;
 public class StagiaireDto {
 
     private Long id;
+
     @NotBlank       // include @NotNull
     private String lastName;
     @NotBlank
@@ -20,6 +20,7 @@ public class StagiaireDto {
     @NotNull
     @Email
     private String email;
+
     /**
      ^ = Début de chaîne - $ = Fin de chaîne
      [...] = ensemble de caractères autorisés (ou interdits avec un ^ [^...])
@@ -32,6 +33,7 @@ public class StagiaireDto {
     @NotBlank
     @Pattern(regexp = "^(0|\\+33)[1-9][0-9]{8}$")
     private String phoneNumber;
+
     @NotNull
     @Past
     private Date birthDate;

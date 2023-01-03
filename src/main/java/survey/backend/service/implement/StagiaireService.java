@@ -5,11 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import survey.backend.Utils.StreamUtils;
 import survey.backend.dto.StagiaireDto;
-//import survey.backend.entities.Stagiaire;
 import survey.backend.entities.Stagiaire;
 import survey.backend.repository.StagiaireRepository;
-
-import java.util.Collection;
 import java.util.Optional;
 
 @Service
@@ -21,19 +18,19 @@ public class StagiaireService implements survey.backend.service.StagiaireService
     private ModelMapper modelMapper;
 
     @Override
-    public Iterable<StagiaireDto> findAll() {
     //public Collection<StagiaireDto> findAll() {
+    public Iterable<StagiaireDto> findAll() {
+        //return this.stagiaireRepository.findAll();
         return StreamUtils.toStream(this.stagiaireRepository.findAll())
                 .map(stagiaireEntity -> modelMapper.map(stagiaireEntity, StagiaireDto.class))
                 .toList();
-        //return this.stagiaireRepository.ffindAll();
     }
 
     @Override
     public Optional<StagiaireDto> findById(Long id) {
+        //return this.stagiaireRepository.findById(id);
         return this.stagiaireRepository.findById(id)
                 .map(stagiaireEntity -> modelMapper.map(stagiaireEntity, StagiaireDto.class));
-        //return this.stagiaireRepository.findById(id);
     }
 
     @Override
@@ -73,8 +70,6 @@ public class StagiaireService implements survey.backend.service.StagiaireService
         Stagiaire stagiaireEntity = modelMapper.map(stagiaireDto, Stagiaire.class);
         this.stagiaireRepository.save(stagiaireEntity);
         return modelMapper.map(stagiaireEntity, StagiaireDto.class);
-//        StagiaireDto stagiaireDtoResponse = modelMapper.map(stagiaireEntity, StagiaireDto.class);
-//        return stagiaireDtoResponse;
     }
 
     @Override

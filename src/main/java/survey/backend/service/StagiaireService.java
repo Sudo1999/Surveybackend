@@ -2,7 +2,6 @@ package survey.backend.service;
 
 import survey.backend.dto.StagiaireDto;
 //import survey.backend.entities.Stagiaire;
-import java.util.Collection;
 import java.util.Optional;
 
 public interface StagiaireService {
@@ -32,6 +31,7 @@ public interface StagiaireService {
      * @return stagiaires set with this lastname (if not null) and this firstname (if not null) ;
      * empty set if no stagiaire found with these criteria or both criteria are null
      */
+//    Iterable<StagiaireDto> search(String lastName, String firstName);
     Iterable<StagiaireDto> search(String lastName, String firstName);
 
     /**

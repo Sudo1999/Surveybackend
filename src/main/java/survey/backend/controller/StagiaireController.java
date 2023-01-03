@@ -45,7 +45,7 @@ public class StagiaireController {
         if (optStagiaire.isPresent()) {
             return optStagiaire.get();
         } else {
-            throw NoDataFoundError.withId("Stagiaire", id);
+            throw NoDataFoundError.withId("StagiaireDto", id);
         }
     }
 
@@ -71,7 +71,7 @@ public class StagiaireController {
             size = ((Collection<StagiaireDto>) stagiaireCollection).size();
         }
         if (size == 0) {
-            throw NoDataFoundError.noResults("Stagiaire search", lastName + " " + firstName);
+            throw NoDataFoundError.noResults("StagiaireDto search", lastName + " " + firstName);
         }
         return stagiaireCollection;
     }
@@ -86,7 +86,7 @@ public class StagiaireController {
     public StagiaireDto update(@Valid @RequestBody StagiaireDto stagiaireDto) {
         return stagiaireService.update(stagiaireDto)
             .orElseThrow(
-                    () -> NoDataFoundError.withId("Stagiaire", stagiaireDto.getId())
+                    () -> NoDataFoundError.withId("StagiaireDto", stagiaireDto.getId())
             );
     }
 
