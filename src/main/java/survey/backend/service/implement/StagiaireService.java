@@ -18,7 +18,6 @@ public class StagiaireService implements survey.backend.service.StagiaireService
     private ModelMapper modelMapper;
 
     @Override
-    //public Collection<StagiaireDto> findAll() {
     public Iterable<StagiaireDto> findAll() {
         //return this.stagiaireRepository.findAll();
         return StreamUtils.toStream(this.stagiaireRepository.findAll())
@@ -27,7 +26,7 @@ public class StagiaireService implements survey.backend.service.StagiaireService
     }
 
     @Override
-    public Optional<StagiaireDto> findById(Long id) {
+    public Optional<StagiaireDto> findById(long id) {
         //return this.stagiaireRepository.findById(id);
         return this.stagiaireRepository.findById(id)
                 .map(stagiaireEntity -> modelMapper.map(stagiaireEntity, StagiaireDto.class));
@@ -66,7 +65,6 @@ public class StagiaireService implements survey.backend.service.StagiaireService
     @Override
     public StagiaireDto add(StagiaireDto stagiaireDto) {
         //return this.stagiaireRepository.save(stagiaireDto.toStagiaire());   // save() fait la persistence de la base de données
-
         Stagiaire stagiaireEntity = modelMapper.map(stagiaireDto, Stagiaire.class);
         this.stagiaireRepository.save(stagiaireEntity);
         return modelMapper.map(stagiaireEntity, StagiaireDto.class);
@@ -85,7 +83,7 @@ public class StagiaireService implements survey.backend.service.StagiaireService
         return this.stagiaireRepository.findById(stagiaireDto.getId())
             .map(stagiaireEntity -> {
                 // Update entity object from db with dto fields
-                modelMapper.map(stagiaireDto, stagiaireEntity);
+                modelMapper.map(stagiaireDto, stagiaireEntity);     // C'est bien stagiaireEntity et non Stagiaire.class
                 // Synchronize with database
                 stagiaireRepository.save(stagiaireEntity);
                 // Transform entity updated in dto
@@ -94,7 +92,7 @@ public class StagiaireService implements survey.backend.service.StagiaireService
     }
 
     @Override
-    public boolean delete(Long id) {
+    public boolean delete(long id) {
         Optional<Stagiaire> optStagiaire = this.stagiaireRepository.findById(id);
         if(optStagiaire.isPresent()) {
             this.stagiaireRepository.delete(optStagiaire.get());

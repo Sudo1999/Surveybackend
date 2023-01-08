@@ -13,4 +13,5 @@ public interface PoeRepository extends CrudRepository<Poe, Long> {
 
     // Fonction équivalente fournie par Spring Boot :
     List<Poe> findByEndDateBetween(Date firstDate, Date lastDate);
+
 }

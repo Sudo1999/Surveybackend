@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-// @Table => changé pour les tests en @Table(name = "users")
+// @Table => changé pour les tests en @Table(name = "users") et à remettre en place pour que ça fonctionne
 @Table(name = "users")
 @Entity
 public class User {

@@ -21,7 +21,7 @@ public interface StagiaireService {
      * @param id
      * @return optional with stagiaire if found else optional empty
      */
-    Optional<StagiaireDto> findById(Long id);
+    Optional<StagiaireDto> findById(long id);
 
     /**
      * search stagiaires with criteria lastname, firstname ;
@@ -53,5 +53,5 @@ public interface StagiaireService {
      * @param id
      * @return true if found and deleted, false if not found
      */
-     boolean delete(Long id);
+     boolean delete(long id);
 }

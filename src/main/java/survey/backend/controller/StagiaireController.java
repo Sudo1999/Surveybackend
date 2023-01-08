@@ -3,11 +3,11 @@ package survey.backend.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import survey.backend.service.StagiaireService;
 import survey.backend.dto.StagiaireDto;
 //import survey.backend.entities.Stagiaire;
 import survey.backend.error.BadRequestError;
 import survey.backend.error.NoDataFoundError;
-import survey.backend.service.StagiaireService;
 import javax.validation.Valid;
 import java.util.Collection;
 import java.util.Optional;
@@ -30,7 +30,9 @@ public class StagiaireController {
      * @return list of stagiaires
      */
     @GetMapping
-    public Iterable<StagiaireDto> findAll() { return stagiaireService.findAll(); }
+    public Iterable<StagiaireDto> findAll() {
+        return stagiaireService.findAll();
+    }
 
     /**
      * A stagiaire by its id
@@ -40,12 +42,12 @@ public class StagiaireController {
      * @return a stagiaire
      */
     @GetMapping("{id}")
-    public StagiaireDto findById(@PathVariable("id") Long id) {
+    public StagiaireDto findById(@PathVariable("id") long id) {
         Optional<StagiaireDto> optStagiaire = stagiaireService.findById(id);
         if (optStagiaire.isPresent()) {
             return optStagiaire.get();
         } else {
-            throw NoDataFoundError.withId("StagiaireDto", id);
+            throw NoDataFoundError.withId("Stagiaire", id);
         }
     }
 
@@ -71,7 +73,7 @@ public class StagiaireController {
             size = ((Collection<StagiaireDto>) stagiaireCollection).size();
         }
         if (size == 0) {
-            throw NoDataFoundError.noResults("StagiaireDto search", lastName + " " + firstName);
+            throw NoDataFoundError.noResults("Stagiaire search", lastName + " " + firstName);
         }
         return stagiaireCollection;
     }
@@ -86,13 +88,13 @@ public class StagiaireController {
     public StagiaireDto update(@Valid @RequestBody StagiaireDto stagiaireDto) {
         return stagiaireService.update(stagiaireDto)
             .orElseThrow(
-                    () -> NoDataFoundError.withId("StagiaireDto", stagiaireDto.getId())
+                    () -> NoDataFoundError.withId("Stagiaire", stagiaireDto.getId())
             );
     }
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable("id") Long id) {
+    public void delete(@PathVariable("id") long id) {
         if (!stagiaireService.delete(id)) {
             throw NoDataFoundError.withId("Stagiaire", id);
         }
