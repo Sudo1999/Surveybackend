@@ -1,4 +1,4 @@
-package survey.backend.Utils;
+package survey.backend.utils;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
