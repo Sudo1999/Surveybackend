@@ -9,7 +9,7 @@ package survey.backend.dto;
 //
 //    @BeforeAll
 //    static void initData() {
-//        Integer id = 1;
+//        Long id = 1;
 //        String lastname = "lastname";
 //        String firstname = "firstname";
 //        String email = "monemail@monemail.com";
@@ -33,7 +33,7 @@ package survey.backend.dto;
 //
 //    @Test
 //    void testAllArgsConstructor() {
-//        Integer id = 1;
+//        Long id = 1;
 //        String lastname = "lastname";
 //        String firstname = "firstname";
 //        String email = "monemail@monemail.com";

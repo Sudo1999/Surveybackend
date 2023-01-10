@@ -1,13 +1,19 @@
 package survey.backend.entities;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import survey.backend.enums.PoeType;
+
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter @Setter
+@ToString(exclude = "stagiaires")
 public class Poe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,8 +23,10 @@ public class Poe {
     @Column(name = "title", length = 150, nullable = false)
     private String title;
     @Column(name = "begin_date", nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date beginDate;
     @Column(name = "end_date", nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date endDate;
 
     @Column(name = "poe_type", length = 10, nullable = false)
@@ -28,7 +36,8 @@ public class Poe {
     @Column(name = "id_aelion", length = 15, nullable = true)
     private String idAelion;
 
-//    @OneToMany
-//    @JoinColumn(name = "poe_id")    // poe_id sera la clé étrangère de l'entité cible
-//    private Set<Stagiaire> stagiaires;
+    @Builder.Default
+    @OneToMany
+    @JoinColumn(name = "poe_id")    // poe_id sera la clé étrangère de l'entité cible
+    private Set<Stagiaire> stagiaires = new HashSet<>();    // Le new HashSet<>() est imposé par le Builder
 }

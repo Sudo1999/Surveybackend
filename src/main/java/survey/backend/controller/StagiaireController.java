@@ -3,11 +3,11 @@ package survey.backend.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import survey.backend.service.StagiaireService;
 import survey.backend.dto.StagiaireDto;
-import survey.backend.entities.Stagiaire;
+//import survey.backend.entities.Stagiaire;
 import survey.backend.error.BadRequestError;
 import survey.backend.error.NoDataFoundError;
-import survey.backend.service.StagiaireService;
 import javax.validation.Valid;
 import java.util.Collection;
 import java.util.Optional;
@@ -30,7 +30,7 @@ public class StagiaireController {
      * @return list of stagiaires
      */
     @GetMapping
-    public Iterable<Stagiaire> findAll() {
+    public Iterable<StagiaireDto> findAll() {
         return stagiaireService.findAll();
     }
 
@@ -42,8 +42,8 @@ public class StagiaireController {
      * @return a stagiaire
      */
     @GetMapping("{id}")
-    public Stagiaire findById(@PathVariable("id") int id) {
-        Optional<Stagiaire> optStagiaire = stagiaireService.findById(id);
+    public StagiaireDto findById(@PathVariable("id") long id) {
+        Optional<StagiaireDto> optStagiaire = stagiaireService.findById(id);
         if (optStagiaire.isPresent()) {
             return optStagiaire.get();
         } else {
@@ -60,7 +60,7 @@ public class StagiaireController {
      * @return stagiaires corresponding
      */
     @GetMapping("search")
-    public Iterable<Stagiaire> search(
+    public Iterable<StagiaireDto> search(
             @RequestParam(name = "ln", required = false) String lastName,
             @RequestParam(name = "fn", required = false) String firstName
     ) {
@@ -68,9 +68,9 @@ public class StagiaireController {
         if (lastName == null && firstName == null) {
             throw BadRequestError.withNoArg("Search with no args is a bad request !!!");  // 400 Bad Request
         }
-        Iterable<Stagiaire> stagiaireCollection = stagiaireService.search(lastName, firstName);
+        Iterable<StagiaireDto> stagiaireCollection = stagiaireService.search(lastName, firstName);
         if (stagiaireCollection instanceof Collection) {
-            size = ((Collection<Stagiaire>) stagiaireCollection).size();
+            size = ((Collection<StagiaireDto>) stagiaireCollection).size();
         }
         if (size == 0) {
             throw NoDataFoundError.noResults("Stagiaire search", lastName + " " + firstName);
@@ -80,22 +80,21 @@ public class StagiaireController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Stagiaire add(@Valid @RequestBody StagiaireDto stagiaireDto) {
+    public StagiaireDto add(@Valid @RequestBody StagiaireDto stagiaireDto) {
         return stagiaireService.add(stagiaireDto);
     }
 
     @PutMapping
-    public Stagiaire update(@Valid @RequestBody StagiaireDto stagiaireDto) {
+    public StagiaireDto update(@Valid @RequestBody StagiaireDto stagiaireDto) {
         return stagiaireService.update(stagiaireDto)
             .orElseThrow(
-                    () -> NoDataFoundError.withId("Stagiaire",
-                            Math.toIntExact(stagiaireDto.getId()))
+                    () -> NoDataFoundError.withId("Stagiaire", stagiaireDto.getId())
             );
     }
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable("id") int id) {
+    public void delete(@PathVariable("id") long id) {
         if (!stagiaireService.delete(id)) {
             throw NoDataFoundError.withId("Stagiaire", id);
         }

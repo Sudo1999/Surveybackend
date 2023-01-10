@@ -1,38 +1,40 @@
 package survey.backend.dto;
 
 import lombok.*;
-import survey.backend.entities.Poe;
-import survey.backend.entities.PoeType;
+import lombok.experimental.SuperBuilder;
+import survey.backend.enums.PoeType;
+//import survey.backend.entities.Poe;
 import javax.validation.constraints.NotBlank;
-import java.util.ArrayList;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
-import java.util.List;
-import java.util.Set;
 
-@Builder
-@Getter @Setter
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter @Setter
 public class PoeDto {
+
         private Long id;
+
         @NotBlank
         private String title;
+        @NotNull
         private Date beginDate;
+        @NotNull
         private Date endDate;
+        @NotNull
         private PoeType poeType;
+
         private String idAelion;
 
-//        @Builder.Default
-//        private Set<StagiaireDto> stagiaires = null;
-
-        public Poe toPoe() {
-                Poe poe = new Poe();
-                poe.setId(this.id);
-                poe.setTitle(this.title);
-                poe.setBeginDate(this.beginDate);
-                poe.setEndDate(this.endDate);
-                poe.setPoeType(this.poeType);
-                poe.setIdAelion(this.idAelion);
-                return poe;
-        }
+//        public Poe toPoe() {
+//                Poe poe = new Poe();
+//                poe.setId(this.id);
+//                poe.setTitle(this.title);
+//                poe.setBeginDate(this.beginDate);
+//                poe.setEndDate(this.endDate);
+//                poe.setPoeType(this.poeType);
+//                poe.setIdAelion(this.idAelion);
+//                return poe;
+//        }
 }
