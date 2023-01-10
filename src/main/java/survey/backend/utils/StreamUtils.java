@@ -1,4 +1,4 @@
-package survey.backend.Utils;
+package survey.backend.utils;
 
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;

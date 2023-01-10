@@ -2,7 +2,7 @@ package survey.backend.dto;
 
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-import survey.backend.entities.PoeType;
+import survey.backend.enums.PoeType;
 //import survey.backend.entities.Poe;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

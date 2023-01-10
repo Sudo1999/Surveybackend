@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 // @Table => changé pour les tests en @Table(name = "users") et à remettre en place pour que ça fonctionne
-@Table(name = "users")
+@Table          //(name = "users")
 @Entity
 public class User {
     @Id

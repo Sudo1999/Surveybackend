@@ -10,7 +10,7 @@ package survey.backend.dto.repository;
 //import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 //import org.springframework.test.context.ActiveProfiles;
 //import survey.backend.entities.Poe;
-//import survey.backend.entities.PoeType;
+//import survey.backend.enums.PoeType;
 //import java.text.DateFormat;
 //import java.text.SimpleDateFormat;
 //import java.util.Date;
