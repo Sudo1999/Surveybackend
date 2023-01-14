@@ -11,6 +11,7 @@ import survey.backend.entities.Stagiaire;
 import survey.backend.repository.PoeRepository;
 import survey.backend.repository.StagiaireRepository;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
@@ -122,8 +123,15 @@ public class PoeService implements survey.backend.service.PoeService {
     }
 
     @Override
-    public Optional<PoeFullDto> clearStagiaires(long poeId) {
-        // TODO
+    public Optional<PoeFullDto> removeAllStagiaires(long poeId) {
+        var optPoe = this.poeRepository.findById(poeId);
+        if(optPoe.isPresent()) {
+            var poeEntity = optPoe.get();
+            Set<Stagiaire> set =  new HashSet<Stagiaire>() ;
+            poeEntity.setStagiaires(set);
+            this.poeRepository.save(poeEntity);
+            return Optional.of(modelMapper.map(poeEntity, PoeFullDto.class));
+        }
         return Optional.empty();
     }
 }

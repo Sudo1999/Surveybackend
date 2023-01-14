@@ -116,4 +116,13 @@ public class PoeController {
         }
         return optPoeFullDto.get();
     }
+
+    @DeleteMapping("{poeId}/removeAllStagiaires")
+    public PoeFullDto removeAllStagiaires(@PathVariable("poeId") long poeId) {
+        var optPoeFullDto = this.poeService.removeAllStagiaires(poeId);
+        if(optPoeFullDto.isEmpty()){
+            throw NoDataFoundError.withId("Either Poe or stagiaires in Poe", poeId);
+        }
+        return optPoeFullDto.get();
+    }
 }
