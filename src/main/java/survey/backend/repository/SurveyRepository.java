@@ -1,2 +1,8 @@
-package survey.backend.repository;public class SurveyRepository {
+package survey.backend.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import survey.backend.entities.Survey;
+
+public interface SurveyRepository extends JpaRepository<Survey, Long> {
+
 }

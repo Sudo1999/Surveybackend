@@ -24,5 +24,5 @@ public interface PoeService {
     Optional<PoeFullDto> addStagiaire(long poeId, long stagiaireId);
     Optional<PoeFullDto> addStagiaires(long poeId, Collection<Long> stagiairesIds);
     Optional<PoeFullDto> removeStagiaire(long poeId, long stagiaireId);
-    Optional<PoeFullDto> clearStagiaires(long poeId);
+    Optional<PoeFullDto> removeAllStagiaires(long poeId);
 }
